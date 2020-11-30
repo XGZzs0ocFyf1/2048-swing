@@ -8,7 +8,7 @@ import java.awt.event.KeyEvent;
 // using as is.
 // drawing based on https://github.com/bulenkov/2048
 public class Game2048Panel extends JPanel {
-    private static final Color BG_COLOR = new Color(0xbbada0);
+    private static final Color BG_COLOR = new Color(0xCFB095);
     private static final String FONT_NAME = "Arial";
     private static final int TILE_SIZE = 64;
     private static final int TILES_MARGIN = 16;

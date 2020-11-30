@@ -19,9 +19,6 @@ public abstract class Board<K, V> {
         return board;
     }
 
-    public void setBoard(Map<K, V> board) {
-        this.board = board;
-    }
 
     public Board(int width, int height) {
         this.width = width;

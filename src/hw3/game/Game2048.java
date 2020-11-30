@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 public class Game2048 implements Game {
 
     private GameHelper gameHelper = new GameHelper();
-    private Random random = new Random();
     public static final int GAME_SIZE = 4;
     private final Board<Key, Integer> board = new SquareBoard<>(GAME_SIZE);
 
@@ -30,16 +29,10 @@ public class Game2048 implements Game {
         } catch (GameOverException e) {
             e.printStackTrace();
         }
-
-
     }
 
     @Override
     public boolean canMove() {
-        //ход можно сделать если
-        //в направлении движения есть свободнае поле для каждой из клеток или есть клетки которые могут быть соединены
-        //если хоть в одной ячейке из строки длиной GAME_SIZE этого нет, то двинуться нельзя
-
 
         //vertical check
         for (int i = 0; i < GAME_SIZE; i++) {
@@ -70,7 +63,6 @@ public class Game2048 implements Game {
                     return true;
                 }
             }
-
         }
 
         return false;
@@ -174,38 +166,4 @@ public class Game2048 implements Game {
 
     }
 
-    public static void main(String[] args) {
-        Game2048 g = new Game2048();
-        int sum = 0;
-        int numberOfEight = 0;
-        int numberOfTwo = 0;
-        for (int i = 0; i < 10000; i++) {
-            System.out.println(g.getValue());
-        }
-
-    }
-
-    public void printBoard(Board<? super Key, ? super Integer> board) {
-        System.out.println("----------------------------");
-
-        for (int i = 0; i < GAME_SIZE; i++) {
-            for (int j = 0; j < GAME_SIZE; j++) {
-                String left = j == 0 ? "|" : "";
-                String right = j == GAME_SIZE - 1 ? "|" : "";
-                System.out.print(left);
-
-                String content = board.getBoard().get(new Key(i, j)) + "";
-                int spaceLength = (6 - content.length()) / 2;
-
-                StringBuilder sb = new StringBuilder();
-                for (int k = 0; k < spaceLength; k++) {
-                    sb.append(" ");
-                }
-                String space = sb.toString();
-                System.out.print(content + space + " | ");
-            }
-            System.out.println();
-        }
-        System.out.println("----------------------------");
-    }
 }

@@ -101,21 +101,4 @@ public class SquareBoard<V> extends Board<Key, V> {
         int b = k2.getJ();
         return (a < b) ? -1 : ((a == b) ? 0 : 1);
     }
-
-
-    public static void main(String[] args) {
-        Board b = new SquareBoard(2);
-        Map<Key, Integer> map = new HashMap<>();
-        map.put(new Key(0,0), 0);
-        map.put(new Key(0,1), 1);
-        map.put(new Key(1,1), 2);
-        map.put(new Key(1,0), 3);
-        b.setBoard(map);
-        System.out.println(b.getBoard());
-        System.out.println(b.hasValue(0));
-        System.out.println(b.hasValue(1));
-        System.out.println(b.hasValue(2));
-        System.out.println(b.hasValue(3));
-        System.out.println(b.hasValue(4));
-    }
 }
