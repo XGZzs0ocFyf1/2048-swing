@@ -25,7 +25,7 @@ public class GameHelper {
 
     private List<Integer> sort(List<Integer> input) {
         return input.stream()
-                .sorted((a, b) -> nullComparator(a, b))
+                .sorted(this::nullComparator)
                 .collect(Collectors.toList());
     }
     private int nullComparator(Integer a, Integer b) {

@@ -26,7 +26,7 @@ public class SquareBoard<V> extends Board<Key, V> {
                 .entrySet()
                 .stream()
                 .filter(elem -> elem.getValue() == null)
-                .map(elem -> elem.getKey())
+                .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
 
@@ -77,7 +77,7 @@ public class SquareBoard<V> extends Board<Key, V> {
 
     @Override
     public boolean hasValue(V value) {
-        return getBoard().values().contains(value) ? true : false;
+        return getBoard().containsValue(value);
     }
 
     @Override
@@ -93,12 +93,12 @@ public class SquareBoard<V> extends Board<Key, V> {
     private int keyComparatorI(Key k1, Key k2) {
         int a = k1.getI();
         int b = k2.getI();
-        return (a < b) ? -1 : ((a == b) ? 0 : 1);
+        return Integer.compare(a, b);
     }
 
     private int keyComparatorJ(Key k1, Key k2) {
         int a = k1.getJ();
         int b = k2.getJ();
-        return (a < b) ? -1 : ((a == b) ? 0 : 1);
+        return Integer.compare(a, b);
     }
 }

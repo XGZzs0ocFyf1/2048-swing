@@ -1,7 +1,5 @@
 package hw3.game;
 
-import hw3.game.Key;
-
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,19 +8,17 @@ import java.util.Map;
 
 public abstract class Board<K, V> {
 
-    private int width;
-    private int height;
-    private Map<K, V> board = new HashMap<>();
-
-
-    public Map<K, V> getBoard() {
-        return board;
-    }
-
+    private final int WIDTH;
+    private final int HEIGHT;
+    private final Map<K, V> BOARD = new HashMap<>();
 
     public Board(int width, int height) {
-        this.width = width;
-        this.height = height;
+        this.WIDTH = width;
+        this.HEIGHT = height;
+    }
+
+    public Map<K, V> getBoard() {
+        return BOARD;
     }
 
     public abstract void fillBoard(List<V> list);
@@ -45,11 +41,11 @@ public abstract class Board<K, V> {
 
 
     public int getWidth() {
-        return width;
+        return WIDTH;
     }
 
     public int getHeight() {
-        return height;
+        return HEIGHT;
     }
 
 

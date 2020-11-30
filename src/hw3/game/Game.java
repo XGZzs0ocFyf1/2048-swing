@@ -6,7 +6,7 @@ public interface Game {
     boolean canMove();
     void move(Direction direction) throws GameOverException;
     void addItem() throws GameOverException;
-    Board getGameBoard();
+    Board<Key, Integer> getGameBoard();
     boolean hasWin();
 
 }

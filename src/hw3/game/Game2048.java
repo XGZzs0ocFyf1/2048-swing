@@ -1,12 +1,14 @@
 package hw3.game;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 public class Game2048 implements Game {
 
-    private GameHelper gameHelper = new GameHelper();
+    private final GameHelper GAME_HELPER = new GameHelper();
     public static final int GAME_SIZE = 4;
     private final Board<Key, Integer> board = new SquareBoard<>(GAME_SIZE);
 
@@ -43,7 +45,7 @@ public class Game2048 implements Game {
             }
 
             for (int j = 1; j < keyColumn.size(); j++) {
-                if (board.getBoard().get(keyColumn.get(j)) == board.getBoard().get(keyColumn.get(0))) {
+                if (board.getBoard().get(keyColumn.get(j)).equals(board.getBoard().get(keyColumn.get(0)))) {
                     return true;
                 }
             }
@@ -59,7 +61,7 @@ public class Game2048 implements Game {
             }
 
             for (int j = 1; j < keyRow.size(); j++) {
-                if (board.getBoard().get(keyRow.get(j)) == board.getBoard().get(keyRow.get(0))) {
+                if (board.getBoard().get(keyRow.get(j)).equals(board.getBoard().get(keyRow.get(0)))) {
                     return true;
                 }
             }
@@ -72,18 +74,18 @@ public class Game2048 implements Game {
     /**
      * helper method for moving elements in list in case of direction
      *
-     * @param direction
-     * @param inputs
-     * @return
+     * @param direction move direction
+     * @param inputs list of elements: horizontal or verical row
+     * @return merged elements (check game 2048 rules)
      */
     private List<Integer> moveToDirection(Direction direction, List<Integer> inputs) {
         List<Integer> merged;
         if (direction.equals(Direction.DOWN) || direction.equals(Direction.RIGHT)) {
             Collections.reverse(inputs);
-            merged = gameHelper.moveAndMergeEqual(inputs);
+            merged = GAME_HELPER.moveAndMergeEqual(inputs);
             Collections.reverse(merged);
         } else {
-            merged = gameHelper.moveAndMergeEqual(inputs);
+            merged = GAME_HELPER.moveAndMergeEqual(inputs);
         }
         return merged;
     }
@@ -93,19 +95,12 @@ public class Game2048 implements Game {
     public void move(Direction direction) throws GameOverException {
 
         if (!canMove()) throw new GameOverException("can't move");
-        int numberOfStacks = 0;
-
-        //vertical move
-           /*   if (direction.equals(Direction.DOWN)) Collections.reverse(values);
-                List<Integer> merged = gameHelper.moveAndMergeEqual(values);
-                if (direction.equals(Direction.DOWN)) Collections.reverse(merged);*/
-
 
         if (direction.equals(Direction.UP) || direction.equals(Direction.DOWN)) {
             for (int columnNumber = 0; columnNumber < GAME_SIZE; columnNumber++) {
                 List<Key> keyColumn = board.getColumn(columnNumber);
                 List<Integer> values = keyColumn.stream()
-                        .map(key -> board.getValue(key))
+                        .map(board::getValue)
                         .collect(Collectors.toList());
 
                 List<Integer> merged = moveToDirection(direction, values);
@@ -123,7 +118,7 @@ public class Game2048 implements Game {
 
                 List<Integer> values = keyRow
                         .stream()
-                        .map(key -> board.getValue(key))
+                        .map(board::getValue)
                         .collect(Collectors.toList());
 
                 List<Integer> result = moveToDirection(direction, values);
@@ -146,14 +141,13 @@ public class Game2048 implements Game {
     }
 
     @Override
-    public Board getGameBoard() {
+    public Board<Key, Integer> getGameBoard() {
         return board;
     }
 
     @Override
     public boolean hasWin() {
-        if (board.hasValue(2048)) return true;
-        return false;
+        return board.hasValue(2048);
     }
 
 

@@ -4,27 +4,27 @@ import java.util.Objects;
 
 public class Key {
 
-    private int i;
-    private int j;
+    private final int I;
+    private final int J;
 
     public Key(int i, int j) {
-        this.i = i;
-        this.j = j;
+        this.I = i;
+        this.J = j;
     }
 
     public int getI() {
-        return i;
+        return I;
     }
 
     public int getJ() {
-        return j;
+        return J;
     }
 
     @Override
     public String toString() {
         return "Key{" +
-                "i=" + i +
-                ", j=" + j +
+                "i=" + I +
+                ", j=" + J +
                 '}';
     }
 
@@ -33,12 +33,12 @@ public class Key {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Key key = (Key) o;
-        return i == key.i &&
-                j == key.j;
+        return I == key.I &&
+                J == key.J;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(i, j);
+        return Objects.hash(I, J);
     }
 }
